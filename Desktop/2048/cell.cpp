@@ -12,7 +12,10 @@ cell::cell(QWidget *parent, int Row, int Col) :
     label->setMinimumSize(40, 0);
     label->setFrameStyle(QFrame::Box);
     label->setAlignment(Qt::AlignCenter);
-    label->setStyleSheet("font-size : 24px");
+    label->setStyleSheet("font-size : 24px;"
+                         "background-color: rgba(255, 255, 255, 100);"
+                         "selection-color: rgb(255, 255, 255);"
+                         );
     label->setText(s);
 }
 

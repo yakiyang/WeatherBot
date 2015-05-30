@@ -16,7 +16,10 @@ Event::Event(QWidget *parent, result *res) :
     score=new QLabel(this);
     score->setGeometry(10,40,100,30);
     score->setAlignment(Qt::AlignCenter);
-    score->setStyleSheet("font-size : 24px");
+    score->setStyleSheet("font-size : 24px;"
+                         "background-color: rgba(255, 255, 255, 0);"
+                         "selection-color: rgb(255, 255, 255);"
+                         "color: rgb(255, 255, 255);");
 
     for(i = 0, k = 0; i < 4; i++, k = k + 4)
     {

@@ -1,5 +1,10 @@
 <RCC>
     <qresource prefix="/">
-        <file>../retry1.png</file>
+        <file>FOR1.tif</file>
+        <file>FOR2.tif</file>
+        <file>CAS1.tif</file>
+        <file>FOR3.tif</file>
+        <file>SKY1.tif</file>
+        <file>SKY2.tif</file>
     </qresource>
 </RCC>

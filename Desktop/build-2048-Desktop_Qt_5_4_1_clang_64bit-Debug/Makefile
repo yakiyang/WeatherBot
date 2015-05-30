@@ -53,7 +53,8 @@ SOURCES       = ../2048/main.cpp \
 		../2048/game.cpp \
 		../2048/result.cpp \
 		../2048/cell.cpp \
-		../2048/event.cpp moc_pro_2048.cpp \
+		../2048/event.cpp qrc_res.cpp \
+		moc_pro_2048.cpp \
 		moc_game.cpp \
 		moc_result.cpp \
 		moc_cell.cpp \
@@ -64,6 +65,7 @@ OBJECTS       = main.o \
 		result.o \
 		cell.o \
 		event.o \
+		qrc_res.o \
 		moc_pro_2048.o \
 		moc_game.o \
 		moc_result.o \
@@ -377,6 +379,7 @@ Makefile: ../2048/2048.pro ../../Qt/5.4/clang_64/mkspecs/macx-clang/qmake.conf .
 		../../Qt/5.4/clang_64/mkspecs/features/yacc.prf \
 		../../Qt/5.4/clang_64/mkspecs/features/lex.prf \
 		../2048/2048.pro \
+		../2048/res.qrc \
 		/Users/yaki/Qt/5.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
 		/Users/yaki/Qt/5.4/clang_64/lib/QtGui.framework/QtGui.prl \
 		/Users/yaki/Qt/5.4/clang_64/lib/QtCore.framework/QtCore.prl
@@ -510,6 +513,7 @@ Makefile: ../2048/2048.pro ../../Qt/5.4/clang_64/mkspecs/macx-clang/qmake.conf .
 ../../Qt/5.4/clang_64/mkspecs/features/yacc.prf:
 ../../Qt/5.4/clang_64/mkspecs/features/lex.prf:
 ../2048/2048.pro:
+../2048/res.qrc:
 /Users/yaki/Qt/5.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
 /Users/yaki/Qt/5.4/clang_64/lib/QtGui.framework/QtGui.prl:
 /Users/yaki/Qt/5.4/clang_64/lib/QtCore.framework/QtCore.prl:
@@ -542,6 +546,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../2048/res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../2048/pro_2048.h ../2048/game.h ../2048/result.h ../2048/cell.h ../2048/event.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../2048/main.cpp ../2048/pro_2048.cpp ../2048/game.cpp ../2048/result.cpp ../2048/cell.cpp ../2048/event.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../2048/pro_2048.ui ../2048/game.ui ../2048/result.ui ../2048/cell.ui ../2048/event.ui $(DISTDIR)/
@@ -568,8 +573,18 @@ check: first
 
 compiler_objective_c_make_all:
 compiler_objective_c_clean:
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_res.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_res.cpp
+qrc_res.cpp: ../2048/res.qrc \
+		../2048/FOR2.tif \
+		../2048/SKY2.tif \
+		../2048/FOR1.tif \
+		../2048/SKY1.tif \
+		../2048/FOR3.tif \
+		../2048/CAS1.tif
+	/Users/yaki/Qt/5.4/clang_64/bin/rcc -name res ../2048/res.qrc -o qrc_res.cpp
+
 compiler_moc_header_make_all: moc_pro_2048.cpp moc_game.cpp moc_result.cpp moc_cell.cpp moc_event.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_pro_2048.cpp moc_game.cpp moc_result.cpp moc_cell.cpp moc_event.cpp
@@ -669,7 +684,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -768,6 +783,9 @@ event.o: ../2048/event.cpp ../2048/event.h \
 		../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
 		../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o event.o ../2048/event.cpp
+
+qrc_res.o: qrc_res.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp
 
 moc_pro_2048.o: moc_pro_2048.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_pro_2048.o moc_pro_2048.cpp

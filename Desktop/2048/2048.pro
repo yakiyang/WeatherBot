@@ -31,4 +31,5 @@ FORMS    += pro_2048.ui \
     cell.ui \
     event.ui
 
-RESOURCES +=
+RESOURCES += \
+    res.qrc
